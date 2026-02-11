@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +10,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
 
-<style>        
+<style>
+
 /* ===== RESET ===== */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:'Michroma', sans-serif;
+    scroll-behavior:smooth;
+}
+
+/* ===== SCROLL PROGRESS BAR ===== */
+.scroll-progress{
+    position:fixed;
+    top:0;
+    left:0;
+    height:4px;
+    width:0%;
+    background:linear-gradient(90deg,cyan,gold);
+    z-index:100000;
 }
 
 /* ===== CURSOR GLOW ===== */
@@ -33,7 +45,7 @@
     transform:translate(-50%,-50%);
 }
 
-/* ===== CINEMATIC WELCOME SCREEN ===== */
+/* ===== WELCOME SCREEN ===== */
 #welcome{
     position:fixed;
     inset:0;
@@ -47,92 +59,27 @@
     animation-delay:3.5s;
 }
 
-/* Floating background lines */
-#welcome::before, #welcome::after {
-    content:'';
-    position:absolute;
-    width:200%;
-    height:200%;
-    top:-50%;
-    left:-50%;
-    background:repeating-linear-gradient(
-        45deg,
-        rgba(0,255,255,0.05),
-        rgba(0,255,255,0.05) 2px,
-        transparent 2px,
-        transparent 6px
-    );
-    animation:rotateLines 15s linear infinite;
-    z-index:1;
-}
-
-#welcome::after {
-    background:repeating-linear-gradient(
-        -45deg,
-        rgba(255,0,255,0.05),
-        rgba(255,0,255,0.05) 2px,
-        transparent 2px,
-        transparent 6px
-    );
-    animation-duration:18s;
-}
-
-/* Heading with neon/flicker/glitch effect */
 #welcome h1{
-    font-size:3rem;
+    font-size:2.5rem;
     color:cyan;
     text-align:center;
-    text-transform: uppercase;
-    letter-spacing:2px;
-    z-index:2;
-    position:relative;
-    animation:neonGlow 2s infinite alternate, flicker 3s infinite;
+    animation:neonGlow 2s infinite alternate;
 }
 
-/* Neon glow colors */
-@keyframes neonGlow{
-    0%{ text-shadow:0 0 15px cyan, 0 0 30px #0ff, 0 0 45px cyan; }
-    25%{ text-shadow:0 0 20px magenta, 0 0 35px violet, 0 0 50px cyan; }
-    50%{ text-shadow:0 0 25px gold, 0 0 40px orange, 0 0 55px yellow; }
-    75%{ text-shadow:0 0 20px cyan, 0 0 35px #0ff, 0 0 50px #0ff; }
-    100%{ text-shadow:0 0 15px cyan, 0 0 30px #0ff, 0 0 45px cyan; }
-}
-
-/* Flicker/glitch effect */
-@keyframes flicker{
-    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%{ opacity:1; transform: translate(0,0); }
-    20%{ opacity:0.8; transform: translate(-2px,1px); }
-    22%{ opacity:0.7; transform: translate(2px,-1px); }
-    24%{ opacity:0.85; transform: translate(-1px,2px); }
-    55%{ opacity:0.75; transform: translate(1px,-2px); }
-}
-
-/* Background line rotation */
-@keyframes rotateLines{
-    0%{ transform: rotate(0deg); }
-    100%{ transform: rotate(360deg); }
-}
-
-/* Fade out welcome screen */
-@keyframes fadeOut{
-    to{ opacity:0; visibility:hidden; }
-}
-
-/* ===== DARK AI BACKGROUND ===== */
+/* ===== BACKGROUND ===== */
 body{
     min-height:100vh;
     background:
         radial-gradient(circle at 15% 25%, rgba(0,180,255,0.12), transparent 45%),
         radial-gradient(circle at 85% 70%, rgba(120,0,255,0.10), transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(0,255,180,0.06), transparent 55%),
         linear-gradient(135deg, #02030a, #03091a, #020814);
     background-size:300% 300%;
-    animation:darkFlow 30s ease-in-out infinite;
+    animation:darkFlow 25s ease-in-out infinite;
     color:white;
     overflow-x:hidden;
 }
 
-/* FLOATING LIGHT ORBS */
+/* ===== FLOATING ORBS ===== */
 .light-orb{
     position:fixed;
     width:160px;
@@ -149,12 +96,6 @@ body{
 .light-orb:nth-child(2){ top:65%; left:80%; animation-duration:32s; }
 .light-orb:nth-child(3){ top:40%; left:50%; animation-duration:28s; }
 
-@keyframes floatOrb{
-    0%{ transform:translate(0,0); }
-    50%{ transform:translate(80px,-100px); }
-    100%{ transform:translate(0,0); }
-}
-
 /* ===== HEADER ===== */
 .header{
     height:380px;
@@ -167,18 +108,17 @@ body{
     width:100%;
     height:100%;
     object-fit:contain;
-    transition:.8s;
     box-shadow:0 0 25px cyan;
+    transition:.8s;
 }
 
 .header:hover img{
-    transform:scale(1.08);
-    filter:drop-shadow(0 0 40px cyan);
+    transform:scale(1.05);
 }
 
 /* ===== LOGO ===== */
 .logo-container{
-    height:220px;
+    height:200px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -189,16 +129,15 @@ body{
     height:150px;
     border-radius:50%;
     border:3px solid cyan;
-    box-shadow:0 0 40px rgba(0,255,255,.8), 0 0 25px #0ff inset;
+    box-shadow:0 0 40px cyan;
     transition:1s;
 }
 
 .logo:hover{
-    transform:rotate(360deg) scale(1.2);
-    box-shadow:0 0 60px gold, 0 0 35px orange inset;
+    transform:rotate(360deg) scale(1.1);
 }
 
-/* ===== CONTENT ===== */
+/* ===== CONTAINER ===== */
 .container{
     display:flex;
     flex-direction:column;
@@ -211,10 +150,10 @@ body{
     background:linear-gradient(145deg,#0a1c3a,#050f25);
     border-radius:26px;
     padding:40px;
-    box-shadow:0 0 45px rgba(0,255,255,.22), 0 0 25px rgba(0,255,255,.15) inset;
+    box-shadow:0 0 45px rgba(0,255,255,.22);
     opacity:0;
-    transform:translateY(90px);
-    transition:.7s ease, box-shadow 0.5s ease;
+    transform:translateY(80px);
+    transition:.7s ease;
 }
 
 .box.show{
@@ -223,41 +162,7 @@ body{
 }
 
 .box:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 65px rgba(0,255,255,.6), 0 0 35px rgba(0,255,255,.3) inset;
-}
-
-/* ===== HEADINGS EFFECT ===== */
-.box h2{
-    text-align:center;
-    color:cyan;
-    margin-bottom:25px;
-    transition:.4s ease;
-    position:relative;
-    font-size:1.8rem;
-}
-
-.box h2::after{
-    content:'';
-    position:absolute;
-    width:0%;
-    height:3px;
-    bottom:-6px;
-    left:0;
-    background:cyan;
-    transition:width 0.4s ease;
-    border-radius:3px;
-}
-
-.box h2:hover::after{
-    width:100%;
-    background:gold;
-}
-
-.box h2:hover{
-    color:gold;
-    letter-spacing:2px;
-    text-shadow:0 0 22px gold, 0 0 35px rgba(255,215,0,0.3);
+    transform:scale(1.03);
 }
 
 /* ===== SLOT ===== */
@@ -268,14 +173,13 @@ body{
     margin:12px auto;
     max-width:320px;
     text-align:center;
-    transition:.35s, box-shadow 0.3s;
+    transition:.3s;
 }
 
 .slot:hover{
     background:cyan;
     color:black;
-    transform:scale(1.15);
-    box-shadow:0 0 25px #0ff, 0 0 15px cyan inset;
+    transform:scale(1.1);
 }
 
 /* ===== BUTTON ===== */
@@ -284,42 +188,66 @@ body{
     padding:16px;
     margin:14px auto;
     display:block;
-    border:none;
-    border-radius:30px;
-    background:linear-gradient(45deg,cyan,royalblue);
-    font-size:16px;
+    border-radius:40px;
+    background:rgba(0,255,255,0.1);
+    border:2px solid cyan;
+    color:white;
     cursor:pointer;
-    transition:.4s, box-shadow 0.3s;
-    box-shadow:0 0 15px cyan;
+    transition:.4s;
+    box-shadow:0 0 20px cyan;
 }
 
 .btn:hover{
-    background:linear-gradient(45deg,gold,orange);
-    transform:scale(1.18);
-    box-shadow:0 0 45px gold, 0 0 25px orange inset;
+    background:cyan;
+    color:black;
+    transform:scale(1.1);
 }
 
-/* ===== KEYFRAMES ===== */
+/* ===== FOOTER ===== */
+footer{
+    text-align:center;
+    padding:30px;
+    color:cyan;
+    margin-top:50px;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes neonGlow{
+    from{ text-shadow:0 0 15px cyan; }
+    to{ text-shadow:0 0 30px magenta; }
+}
+
+@keyframes fadeOut{
+    to{ opacity:0; visibility:hidden; }
+}
+
 @keyframes darkFlow{
     0%{ background-position:0% 50%; }
     50%{ background-position:100% 50%; }
     100%{ background-position:0% 50%; }
 }
+
+@keyframes floatOrb{
+    0%{ transform:translate(0,0); }
+    50%{ transform:translate(60px,-80px); }
+    100%{ transform:translate(0,0); }
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND ORBS -->
-<div class="light-orb"></div>
-<div class="light-orb"></div>
-<div class="light-orb"></div>
-
+<div class="scroll-progress"></div>
 <div class="cursor"></div>
 
-<!-- CINEMATIC WELCOME -->
+<div class="light-orb"></div>
+<div class="light-orb"></div>
+<div class="light-orb"></div>
+
+<!-- WELCOME SCREEN -->
 <div id="welcome">
-<h1><U>{WELCOME TO}<BR>{BAHRIA COLLEGE EAB-1}<br>{MAJEED SRE} <br>{SECONDARY-WING}<BR>{AI-PROJECT}</U></h1>
+<h1>WELCOME TO<br>BAHRIA COLLEGE EAB-1<br>AI PROJECT</h1>
 </div>
 
 <!-- HEADER -->
@@ -336,42 +264,56 @@ body{
 <div class="container">
 
 <div class="box">
-<h2><u>(AI Integration Trash Detector)</u></h2>
+<h2>AI Integration Trash Detector</h2>
+</div>
 
+
+
+<div class="box">
+<h2>Administrators</h2>
+<div class="slot">PRINCIPAL: MA'AM SABIHA</div>
+<div class="slot">VICE PRINCIPAL: MA'AM AZRA</div>
+<div class="slot">SUPERVISOR: SIR ABDUL HAMEED</div>
 </div>
 
 <div class="box">
-<h2><u>(Administrators)</u></h2>
-<div class="slot"><b>PRINCIPAL</b>:<U>MA'AM SABIHA</U></div>
-<div class="slot"><b>VICE PRINCIPAL</b>:<u>MA'AM AZRA</u></div>
-<div class="slot"><b>SUPERVISOR</b>:<u>SIR ABDUL HAMEED</u></div>
+<h2>Project Candidates</h2>
+<div class="slot">MUHAMMAD AYYAN AZEEM</div>
+<div class="slot">ABDUL MOEED</div>
+<div class="slot">SAIM MUJAHID</div>
 </div>
 
 <div class="box">
-<h2>(Project Candidates)</h2>
-<div class="slot"><U><b>MUHAMMAD AYYAN AZEEM</b></U></div>
-<div class="slot"><U><b>ABDUL MOEED</U></b></div>
-<div class="slot"><U><b>SAIM MUJAHID</b></U></div>
-</div>
-
-<div class="box">
-<h2><B>(DETECTORS)</B></h2>
+<h2>Detectors</h2>
 
 <button class="btn"
 onclick="window.open('https://teachablemachine.withgoogle.com/models/aAcoTnFgA/', '_blank')">
-<u><B>RECYCLABLE TRASH DETECTOR </B></u>
+RECYCLABLE TRASH DETECTOR
 </button>
 
 <button class="btn"
 onclick="window.open('https://teachablemachine.withgoogle.com/models/3IQwEVojh/', '_blank')">
-<u>MATERIAL DETECTOR</u>
+MATERIAL DETECTOR
 </button>
 
 </div>
 
 </div>
 
+<footer>
+© 2026 Bahria College EAB-1 | AI Trash Detection System
+</footer>
+
 <script>
+
+/* Scroll Progress */
+const progressBar = document.querySelector('.scroll-progress');
+window.addEventListener('scroll', () => {
+    let scroll = document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progressBar.style.width = (scroll / height) * 100 + "%";
+});
+
 /* Cursor */
 const cursor=document.querySelector('.cursor');
 document.addEventListener('mousemove',e=>{
@@ -379,7 +321,7 @@ document.addEventListener('mousemove',e=>{
     cursor.style.top=e.clientY+'px';
 });
 
-/* Scroll reveal */
+/* Scroll Reveal */
 const boxes=document.querySelectorAll('.box');
 window.addEventListener('scroll',()=>{
     boxes.forEach(box=>{
@@ -388,6 +330,30 @@ window.addEventListener('scroll',()=>{
         }
     });
 });
+
+/* Background Particles */
+for(let i=0;i<25;i++){
+    const p=document.createElement("div");
+    p.style.position="fixed";
+    p.style.width="3px";
+    p.style.height="3px";
+    p.style.background="cyan";
+    p.style.borderRadius="50%";
+    p.style.left=Math.random()*100+"vw";
+    p.style.top=Math.random()*100+"vh";
+    p.style.opacity=Math.random();
+    p.style.animation=`floatParticle ${5+Math.random()*10}s linear infinite`;
+    document.body.appendChild(p);
+}
+
+const style=document.createElement('style');
+style.innerHTML=`
+@keyframes floatParticle{
+0%{transform:translateY(0);}
+100%{transform:translateY(-100vh);}
+}`;
+document.head.appendChild(style);
+
 </script>
 
 </body>
